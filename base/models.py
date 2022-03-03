@@ -15,6 +15,8 @@ class Product(models.Model):
     price=models.CharField(max_length=20)
     image=models.TextField(null=False,blank=False)
     description=models.TextField(null=False,blank=False)
+    size=models.CharField(max_length=10)
+    color=models.CharField(max_length=30)
     stock=models.IntegerField()
     discount=models.IntegerField(null=True,blank=True)
     updated=models.DateTimeField(auto_now=True)
