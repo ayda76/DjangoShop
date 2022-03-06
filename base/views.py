@@ -1,14 +1,35 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate , login,logout
 from django.contrib.auth.forms import UserCreationForm 
-from .models import Product ,Category , Comments,Cart,Order
+from .models import Product ,Category , Comments,Cart,Order,ShopInfo
 from django.contrib.auth.models import User
+from django.db.models import Q
 # Create your views here.
 
 def home(request):
-    return render(request,'base/home.html')
 
+    categorys=Category.objects.all()
+    shopinfo=ShopInfo.objects.all()
+    products=Product.objects.all()
+    #
+    woman=Category.objects.get(name='Women')
+    
+    women=Product.objects.filter(Q(category=woman.id))
+    man=Category.objects.get(name='Men')
+    
+    men=Product.objects.filter(Q(category=man.id))
+            
+
+        
+    context={'categorys':categorys,'shopinfo':shopinfo, 'products':products,'women':women,'men':men}
+    return render(request,'base/home.html',context)
+
+def category(request,pk):
+    categorys=Category.objects.get(id=pk)
+    context={'categorys':categorys}
+    return render(request,context)
 
 def loginUser(request):
 
@@ -60,12 +81,12 @@ def product(request):
 
 def shop(request):
     return render(request,'base/shop.html')    
-    
+@login_required(login_url='loginUser')  
 def cart(request):
     return render(request,'base/cart.html')
 
 def contact(request):
     return render(request,'base/contact.html')
-
+@login_required(login_url='loginUser') 
 def checkbill(request):
     return render(request,'base/check-out.html')

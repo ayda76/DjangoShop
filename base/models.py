@@ -4,9 +4,15 @@ from django.contrib.auth.models import User
 
 class Category(models.Model):
     name=models.CharField(max_length=300)
+    #image=models.TextField(null=False,blank=False,default='')
+    
+    catimage = models.ImageField(upload_to='uploaded/', height_field=100, width_field=100, max_length=100,default='')
+    
+    #image = models.ImageField(upload_to='uploaded/', height_field=None, width_field=None, max_length=100)
+    
 
     def __str__(self):
-        return self.name
+        return (self.name,self.id)
 
 class Product(models.Model):
     category=models.ForeignKey(Category, on_delete=models.CASCADE)
@@ -15,8 +21,8 @@ class Product(models.Model):
     price=models.CharField(max_length=20)
     image=models.TextField(null=False,blank=False)
     description=models.TextField(null=False,blank=False)
-    size=models.CharField(max_length=10)
-    color=models.CharField(max_length=30)
+    size=models.CharField(max_length=10,default='')
+    color=models.CharField(max_length=30,default='')
     stock=models.IntegerField()
     discount=models.IntegerField(null=True,blank=True)
     updated=models.DateTimeField(auto_now=True)
@@ -57,7 +63,14 @@ class Order(models.Model):
         return self.count
 
 
+class ShopInfo(models.Model):
+    facebook=models.TextField(default='')
+    twitter=models.TextField(default='')
+    phone=models.TextField(default='')
+    email=models.TextField(default='')
 
+    def __str__(self):
+        return self.email
 
 
     

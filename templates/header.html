@@ -8,14 +8,16 @@
     <div class="header-top">
         <div class="container">
             <div class="ht-left">
+                {% for info in shopinfo%}
                 <div class="mail-service">
                     <i class=" fa fa-envelope"></i>
-                    hello.colorlib@gmail.com
+                    {{info.email}}
                 </div>
                 <div class="phone-service">
                     <i class=" fa fa-phone"></i>
-                    +65 11.188.888
+                    {{info.phone}}
                 </div>
+                {%endfor%}
             </div>
             <div class="ht-right">
                 {% if request.user.is_authenticated %}
@@ -28,12 +30,13 @@
                    <p style="padding: 5px;"> {{request.user}}</p>
                    {%endif%}
                 </div>
+                {% for info in shopinfo%}
                 <div class="top-social">
-                    <a href="#"><i class="ti-facebook"></i></a>
-                    <a href="#"><i class="ti-twitter-alt"></i></a>
-                    <a href="#"><i class="ti-linkedin"></i></a>
-                    <a href="#"><i class="ti-pinterest"></i></a>
+                    <a href="{{info.facebook}}"><i class="ti-facebook"></i></a>
+                    <a href="{{info.twitter}}"><i class="ti-twitter-alt"></i></a>
+                    
                 </div>
+                {% endfor%}
             </div>
         </div>
     </div>
@@ -123,14 +126,20 @@
                     <i class="ti-menu"></i>
                     <span>All departments</span>
                     <ul class="depart-hover">
-                        <li class="active"><a href="#">Women’s Clothing</a></li>
+                        <!--<li class="active"><a href="#">Women’s Clothing</a></li>
                         <li><a href="#">Men’s Clothing</a></li>
                         <li><a href="#">Underwear</a></li>
                         <li><a href="#">Kid's Clothing</a></li>
                         <li><a href="#">Brand Fashion</a></li>
                         <li><a href="#">Accessories/Shoes</a></li>
                         <li><a href="#">Luxury Brands</a></li>
-                        <li><a href="#">Brand Outdoor Apparel</a></li>
+                        <li><a href="#">Brand Outdoor Apparel</a></li>-->
+                        {%for category in categorys%}
+                        <li><a href="{%url 'shop'%}">{{category.name}}'s Clothing</a></li>
+                        {%endfor%}
+                        
+
+
                     </ul>
                 </div>
             </div>
@@ -140,9 +149,11 @@
                     <li><a href="{%url 'shop'%}">Shop</a></li>
                     <li><a href="#">Collection</a>
                         <ul class="dropdown">
-                            <li><a href="#">Men's</a></li>
-                            <li><a href="#">Women's</a></li>
-                            <li><a href="#">Kid's</a></li>
+                            {%for category in categorys%}
+                            <li><a href="{%url 'shop'%}">{{category.name}}'s</a></li>
+                            {%endfor%}
+                           <!-- <li><a href="#">Women's</a></li>
+                            <li><a href="#">Kid's</a></li>-->
                         </ul>
                     </li>
                     <li><a href="{%url 'contact'%}">Contact</a></li>
