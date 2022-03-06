@@ -76,11 +76,20 @@ def registerUser(request):
 
     return render(request,'base/register.html',{'form':form})
 
-def product(request):
-    return render(request,'base/product.html')    
+def product(request,pk):
+    categorys=Category.objects.all()
+    product=Product.objects.get(id=pk)
+    products=Product.objects.filter(Q(category=product.category))
+    comments=Comments.objects.filter(Q(product=pk))
+    countComment=comments.count()
+    context={'product':product, 'comments':comments,'countComment':countComment,'products':products,'categorys':categorys}
+    return render(request,'base/product.html',context)    
 
 def shop(request):
-    return render(request,'base/shop.html')    
+    products=Product.objects.all()
+    categorys=Category.objects.all()
+    context={'categorys':categorys,'products':products}
+    return render(request,'base/shop.html',context)    
 @login_required(login_url='loginUser')  
 def cart(request):
     return render(request,'base/cart.html')
