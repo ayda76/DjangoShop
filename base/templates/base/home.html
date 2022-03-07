@@ -83,7 +83,7 @@
                 <div class="col-lg-3">
                     <div class="product-large set-bg" data-setbg="{% static 'img/products/women-large.jpg' %} ">
                         <h2>Women’s</h2>
-                        <a href="{%url 'shop'%}">Discover More</a>
+                       
                     </div>
                 </div>
                 <div class="col-lg-8 offset-lg-1">
@@ -237,7 +237,7 @@
                         <p>Secs</p>
                     </div>
                 </div>
-                <a href="#" class="primary-btn">Shop Now</a>
+                
             </div>
         </div>
     </section>
@@ -267,7 +267,7 @@
                                 </div>
                                 <ul>
                                     <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                    <li class="quick-view"><a href="{%url 'product' pk=man.id%}">+ Quick View</a></li>
                                     <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
                                 </ul>
                             </div>
@@ -275,11 +275,11 @@
                             
                                 <div class="catagory-name">{{man.category.name}}</div>
                                 
-                                <a href="#">
+                                <a href="{%url 'product' pk=man.id%}">
                                     <h5>{{man.name}}</h5>
                                 </a>
                                 <div class="product-price">
-                                   {{man.price}}
+                                   {{man.price}}$
                                    
                                 </div>
                             </div>

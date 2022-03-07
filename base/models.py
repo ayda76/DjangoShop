@@ -11,9 +11,19 @@ class Category(models.Model):
         return "%s %s"%(self.name,self.id)
 
 
+class Brand(models.Model):
+    name=models.CharField(max_length=300)
+    image=models.CharField(max_length=300,default='')
+
+    def __str__(self):
+        return  self.name
+
+
+
 
 class Product(models.Model):
     category=models.ForeignKey(Category, on_delete=models.CASCADE)
+    
     admin=models.ForeignKey(User,on_delete=models.CASCADE)
     name= models.CharField(max_length=300)
     price=models.CharField(max_length=20)
@@ -59,6 +69,7 @@ class Comments(models.Model):
 class Cart(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     product=models.ForeignKey(Product, on_delete=models.CASCADE)
+    count=models.TextField(default='')
 
 
 class Order(models.Model):

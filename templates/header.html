@@ -68,7 +68,7 @@
                             </a>
                         </li>
                         <li class="cart-icon">
-                            <a href="#">
+                            <a href="{%url 'cart' pk='all'%}">
                                 <i class="icon_bag_alt"></i>
                                 <span>3</span>
                             </a>
@@ -108,7 +108,7 @@
                                     <h5>$120.00</h5>
                                 </div>
                                 <div class="select-button">
-                                    <a href="{%url 'cart'%}" class="primary-btn view-card">VIEW CARD</a>
+                                    <a href="{%url 'cart' pk='all'%}" class="primary-btn view-card">VIEW CARD</a>
                                     <a href="{%url 'checkbill'%}" class="primary-btn checkout-btn">CHECK OUT</a>
                                 </div>
                             </div>
@@ -135,7 +135,7 @@
                         <li><a href="#">Luxury Brands</a></li>
                         <li><a href="#">Brand Outdoor Apparel</a></li>-->
                         {%for category in categorys%}
-                        <li><a href="{%url 'shop'%}">{{category.name}}'s Clothing</a></li>
+                        <li><a href="{% url 'shop' pk=category.id%}">{{category.name}}'s Clothing</a></li>
                         {%endfor%}
                         
 
@@ -146,11 +146,11 @@
             <nav class="nav-menu mobile-menu">
                 <ul>
                     <li class="active"><a href="{%url 'home'%}">Home</a></li>
-                    <li><a href="{%url 'shop'%}">Shop</a></li>
+                    <li><a href="{% url 'shop' pk='all' %}">Shop</a></li>
                     <li><a href="#">Collection</a>
                         <ul class="dropdown">
                             {%for category in categorys%}
-                            <li><a href="{%url 'shop'%}">{{category.name}}'s</a></li>
+                            <li><a href="{% url 'shop' pk=category.id%}">{{category.name}}'s</a></li>
                             {%endfor%}
                            <!-- <li><a href="#">Women's</a></li>
                             <li><a href="#">Kid's</a></li>-->
@@ -160,7 +160,7 @@
                     <li><a href="#">Pages</a>
                         <ul class="dropdown">
                             
-                            <li><a href="{%url 'cart'%}">Shopping Cart</a></li>
+                            <li><a href="{%url 'cart' pk='all'%}">Shopping Cart</a></li>
                             <li><a href="{%url 'checkbill'%}">Checkout</a></li>
                             <li><a href="{%url 'registerUser'%}">Register</a></li>
                             <li><a href="{%url 'loginUser'%}">Login</a></li>

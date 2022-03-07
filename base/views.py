@@ -85,17 +85,84 @@ def product(request,pk):
     context={'product':product, 'comments':comments,'countComment':countComment,'products':products,'categorys':categorys}
     return render(request,'base/product.html',context)    
 
-def shop(request):
-    products=Product.objects.all()
+def shop(request,pk):
+    #products=Product.objects.all()
     categorys=Category.objects.all()
-    context={'categorys':categorys,'products':products}
-    return render(request,'base/shop.html',context)    
+    
+    if pk=='all':
+        products=Product.objects.all()
+        context={'categorys':categorys,'products':products}
+        return render(request,'base/shop.html',context)
+
+    else:
+        products=Product.objects.filter(Q(category=pk))
+        context={'categorys':categorys,'products':products}
+        return render(request,'base/shop.html',context)
+        
+    
+     
 @login_required(login_url='loginUser')  
-def cart(request):
-    return render(request,'base/cart.html')
+def cart(request,pk):
+
+    
+
+    cartObjs=Cart.objects.all()
+
+    if pk=='all':
+        context={'cartObjs':cartObjs}
+        return render(request,'base/cart.html',context)
+
+    else:
+
+        if request.method=='POST':
+            countProduct=request.POST.get('count')
+            product=Product.objects.get(id=pk)
+            for cart in cartObjs:
+
+                if cart.product==pk:
+                    countcart=int(cart.count)
+                    countcart+=countProduct
+                    cart.count=str(countcart)
+                    return redirect('cart',pk=product.id) 
+                else :
+                    cart=Cart.objects.create(
+                        user=request.user ,
+                        product=product ,
+                        count=str(countProduct) ,
+
+                        )
+
+                    
+                    Objs=Cart.objects.all()
+
+                    context={'cartObjs':Objs}
+                    return render(request,'base/cart.html',context)  
+
+           
+            return  redirect('cart',pk=product.id)
+
+        context={'cartObjs':cartObjs}
+        return render(request,'base/cart.html',context)          
+
+
 
 def contact(request):
     return render(request,'base/contact.html')
 @login_required(login_url='loginUser') 
 def checkbill(request):
     return render(request,'base/check-out.html')
+
+def pricefilter(request):
+    products=Product.objects.all()
+    if request.method=='POST':
+        minimum=request.POST.get('min')
+        maximum=request.POST.get('max')
+        products=Product.objects.filter(Q(int(minimum)<=price) & Q(price<=int(maximum)))
+        context={'products':products}
+        return redirect('shop',context) 
+     
+
+    context={'products':products}
+    return render(request,context) 
+        
+      

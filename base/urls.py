@@ -8,12 +8,13 @@ urlpatterns=[
     path('login/',views.loginUser,name='loginUser'),
     path('logout/',views.logoutUser,name='logoutUser'),
     path('register/',views.registerUser,name='registerUser'),
-    path('cart/',views.cart,name='cart'),
-    path('shop/',views.shop,name='shop'),
+    path('cart/<str:pk>',views.cart,name='cart'),
+    path('shop/<str:pk>',views.shop,name='shop'),
     path('product/<str:pk>',views.product,name='product'),
     path('contact/',views.contact,name='contact'),
     path('checkbill/',views.checkbill,name='checkbill'),
-     path('category/<str:pk>',views.category,name='category'),
+    path('category/<str:pk>',views.category,name='category'),
+    path('pricefilter/',views.pricefilter,name='pricefilter'),
     
 ]
 
