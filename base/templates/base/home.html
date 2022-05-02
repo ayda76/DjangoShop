@@ -47,7 +47,7 @@
                 {%for category in categorys%}
                 <div class="col-lg-4">
                     <div class="single-banner">
-                        <img src="{% static 'img/bannerWoman.jpg'%}" alt="">
+                        <img src="{{category.image.url}}" alt="">
                         <div class="inner-text">
                             <h4><a href="{%url 'category' category.id %}">{{category.name}}</a></h4>
                         </div>
@@ -99,7 +99,7 @@
                   
                         <div class="product-item">
                             <div class="pi-pic">
-                                <img src="{% static 'img/products/women-2.jpg' %}" alt="">
+                                <img src="{{woman.image.url}}" alt="">
                                 <div class="sale">Sale</div>
                                 <div class="icon">
                                     <i class="icon_heart_alt"></i>
@@ -260,7 +260,7 @@
 
                         <div class="product-item">
                             <div class="pi-pic">
-                                <img src="{% static 'img/products/man-1.jpg'%}" alt="">
+                                <img src="{{man.image.url}}" alt="">
                                 <div class="sale">Sale</div>
                                 <div class="icon">
                                     <i class="icon_heart_alt"></i>
@@ -407,7 +407,7 @@
     </div>
     <!-- Instagram Section End -->
 
-    <!-- Latest Blog Section Begin -->
+    <!-- Latest Blog Section Begin 
     <section class="latest-blog spad">
         <div class="container">
             <div class="row">
@@ -521,6 +521,7 @@
             </div>
         </div>
     </section>
+    -->
     <!-- Latest Blog Section End -->
 
 

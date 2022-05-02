@@ -4,9 +4,8 @@ from django.contrib.auth.models import User
 
 class Category(models.Model):
     name=models.CharField(max_length=300)
-    #image=models.TextField(null=False,blank=False,default='')
-    catimage = models.ImageField(upload_to='uploaded/', height_field=100, width_field=100, max_length=100,default='')
-    #image = models.ImageField(upload_to='uploaded/', height_field=None, width_field=None, max_length=100)
+    image=models.ImageField(null=True, max_length=100,default='')
+    
     def __str__(self):
         return "%s %s"%(self.name,self.id)
 
@@ -27,7 +26,8 @@ class Product(models.Model):
     admin=models.ForeignKey(User,on_delete=models.CASCADE)
     name= models.CharField(max_length=300)
     price=models.CharField(max_length=20)
-    image=models.TextField(null=False,blank=False)
+    image=models.ImageField(null=True, max_length=100,default='')
+  
     description=models.TextField(null=False,blank=False)
     stock=models.IntegerField()
     discount=models.IntegerField(null=True,blank=True)
